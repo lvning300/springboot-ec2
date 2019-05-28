@@ -1,0 +1,49 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: lambda-service
+
+
+aws:
+  awsAccessKeyId: AKIAUKTTXEQSC2TFOXCT
+  awsSecretKey: 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
+  region: cn-northwest-1
+  s3bucketName: s3/buckets/spring-boot-test
+  sqs:
+    queues:
+      request: qx-sqs-test-request-lv
+      response: qx-sqs-test-response-lv
+      response-test: lvning-queue
+
+
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: false
+  identity: MYSQL
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:META-INF/mapper/**/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#启用监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"  # 开放所有端点health，info，metrics，通过actuator/+端点名就可以获取相应的信息。默认打开health和info
+  endpoint:
+    health:
+      show-details: always  #未开启actuator/health时，我们获取到的信息是{"status":"UP"}，status的值还有可能是 DOWN。开启后打印详细信息
+
+
+
+

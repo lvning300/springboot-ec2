@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cloud.user.dao.UserInfoDao">
+
+
+    <select id="selectByPageNumSize" parameterType="com.demo.cloud.user.model.UserInfo"
+            resultType="com.demo.cloud.user.model.UserInfo">
+
+        select * from ibp_user us
+        <where>
+            <if test="userInfo.userName != null">
+                user_name like #{userInfo.userName}
+            </if>
+            <if test="userInfo.orgName != null">
+                AND org_name like #{userInfo.orgName}
+            </if>
+            <if test="userInfo.nickName != null">
+                AND nick_name like #{userInfo.nickName}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

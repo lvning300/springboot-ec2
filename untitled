@@ -1,0 +1,26 @@
+$(aws ecr get-login --no-include-email --region cn-northwest-1)
+
+
+//根据Docker File生成Docker 镜像
+docker build -t lv-test/springboot-ec2 .
+docker build -t lv-test/example-image .
+
+//生成完成后，标记您的映像，以便将映像推送到此存储库
+docker tag lv-test/springboot-ec2:latest 297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn/lv-test/springboot-ec2:latest
+
+//推送至镜像
+docker push 297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn/lv-test/springboot-ec2:latest
+
+
+docker run -it --rm -p 9000:9000 --name springboot-ec2  --env JAVA_OPTS="" --env ACCESS_KEY="AKIAUKTTXEQSC2TFOXCT" --env SECRET_ACCESS_KEY="KXeWGMY6582xSoVhUA4BLFU0OvlDf1F36ndA4n06" 297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn/lv-test/example-image:1.0
+
+
+
+
+docker build -t ibp-aws-adapter:1.0 .
+aws ecr get-login --no-include-email --region cn-northwest-1
+docker login -u AWS -p
+docker tag ibp-aws-adapter:1.0 297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn/ibp-aws-adapter:1.0
+docker push 297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn/ibp-aws-adapter:1.0
+
+docker run -it --rm -p 9003:9003 --name IBP-AWS-Adapter --env config_active=lvning --env config_url=http://99.1.184.151:9010 --env JAVA_OPTS="" --env ACCESS_KEY="AKIAPXNCQDRMRM5KP4PQ" --env SECRET_ACCESS_KEY="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" ibp-aws-adapter:1.0
