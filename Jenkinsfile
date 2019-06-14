@@ -11,7 +11,8 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("local/springboot-ec2")
+        /* app = docker.build("local/springboot-ec2") */
+        sh 'sudo docker build -t local/springboot-ec2 .'
     }
 
     stage('Test image') {
