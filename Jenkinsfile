@@ -46,12 +46,14 @@ node {
         }
     }
 
-    post {
-        always {
-            mail to: 'lvning300@163.com',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Something is wrong with ${env.BUILD_URL}"
-        }
-    }
+    stage('email'){
+      steps{
+          emailext(
+           subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+           body: "Something is wrong with ${env.BUILD_URL}",
+           to: 'lvning300@163.com'
+          )
+      }
 
+    }
 }
