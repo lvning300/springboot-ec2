@@ -24,18 +24,11 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         echo "第三步Docker构建"
-        app = docker.build("local/springboot-ec2")
+        app = docker.build("springboot-ec2")
 
     }
 
-    stage('Build Tag') {
-        echo "第四步Docker打标签"
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-       sh "docker tag  local/springboot-ec2:latest springboot-ec2:latest"
 
-
-    }
     stage('Push image') {
      echo "第四步推送镜像"
         /* Finally, we'll push the image with two tags:
