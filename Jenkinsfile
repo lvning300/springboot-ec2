@@ -43,7 +43,7 @@ node {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
         docker.withRegistry('https://297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn', 'ecr:cn-northwest-1:aws_ecr_credentials') {
-            app.push("local/springboot-ec2")
+            app.push("springboot-ec2")
             app.push("latest")
         }
     }
