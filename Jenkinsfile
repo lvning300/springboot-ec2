@@ -24,7 +24,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         echo "第三步Docker构建"
-        app = docker.build("springboot-ec2")
+        app = docker.build("springboot-ec2:${env.BUILD_NUMBER}")
+
+    }
+
+    stage('Image Tag') {
+       echo "Running ${env.BUILD_NUMBER}-${env.BUILD_ID} on ${env.JENKINS_URL}"
+        app.tag("springboot-ec2")
 
     }
 
@@ -39,4 +45,10 @@ node {
             app.push("latest")
         }
     }
+
+    post {
+         success {
+                mail to: lvning300@163.com, subject: 'The Pipeline failed :('
+            }
+        }
 }
