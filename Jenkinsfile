@@ -47,8 +47,11 @@ node {
     }
 
     post {
-         success {
-                mail to: lvning300@163.com, subject: 'The Pipeline failed :('
-            }
+        failure {
+            mail to: 'lvning300@163.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
         }
+    }
+
 }
