@@ -31,7 +31,7 @@ node {
 
     stage('Image tag'){
      echo "第四步Docker构建"
-     app=Image.tag("springboot-ec2")
+     Image.tag("springboot-ec2")
     }
 
 
