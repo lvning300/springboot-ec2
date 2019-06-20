@@ -1,4 +1,5 @@
-node {
+pipeline {
+    agent any
     def app
     def mvnHome
 
@@ -29,7 +30,7 @@ node {
     }
 
     stage('Image Tag') {
-       echo "Running ${env.BUILD_NUMBER}-${env.BUILD_ID} on ${env.JENKINS_URL}"
+        echo "打标签BUILD_NUMBER-BUILD_ID:${env.BUILD_NUMBER}-${env.BUILD_ID} on JenkinsURL:${env.JENKINS_URL}"
         app.tag("springboot-ec2")
 
     }
@@ -42,12 +43,12 @@ node {
          * Pushing multiple tags is cheap, as all the layers are reused. */
         docker.withRegistry('https://297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn', 'ecr:cn-northwest-1:aws_ecr_credentials') {
             app.push("springboot-ec2")
-            app.push("latest")
+            app.push("${env.BUILD_NUMBER}")
         }
     }
 
     post {
-        failure {
+        always {
             mail to: 'lvning300@163.com',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}"
