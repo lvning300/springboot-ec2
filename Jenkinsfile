@@ -29,6 +29,14 @@ node {
 
     }
 
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+       sh "docker tag  local/springboot-ec2:latest 297669174308.dkr.ecr.cn-northwest-1.amazonaws.com.cn/springboot-ec2:latest"
+
+
+    }
+
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags:
