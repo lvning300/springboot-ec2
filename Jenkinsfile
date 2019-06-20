@@ -1,21 +1,6 @@
 node {
     def app
     def mvnHome
-    stage('Clean') {
-     echo "清理Jenkins WorkSpace"
-        steps {
-          cleanWs(
-              cleanWhenAborted: true,
-              cleanWhenFailure: true,
-              cleanWhenNotBuilt: true,
-              cleanWhenSuccess: true,
-              cleanWhenUnstable: true,
-              cleanupMatrixParent: true,
-              disableDeferredWipeout: true,
-              deleteDirs: true
-          )
-      	}
-      }
 
     stage('Preparation') {
           echo "第一步设置基础环境git,maven"
